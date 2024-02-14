@@ -1,0 +1,35 @@
+.select-container
+    width: 100%
+    +flex-center
+
+    p
+        font-weight: 600
+
+    select
+        width: 100%
+        padding: 12px
+        border-radius: 8px
+        font-weight: 600
+
+
+    .btn-container
+        width: 100%
+        +flex-center
+
+        button
+            margin-top: 12px
+            background-color: $c-principal
+            border: none
+            padding: 12px 40px
+            color: white
+            border-radius: 30px
+            font-weight: 600
+            font-size: 20px
+            cursor: pointer
+
+            &:hover:not(:disabled)
+                box-shadow: inset 0px -12px 12px #ffb732
+
+        button:disabled
+            background-color: #888
+            cursor: no-drop

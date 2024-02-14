@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Monedas</title>
+    <link rel="stylesheet" href="assets/sass/main.css">
+</head>
+<body>
+
+    <div class="converter-container">
+        <div class="converter-header">
+            <h2>Conversor de monedas Nacional</h2>
+        </div>
+        <div class="input-container">
+			<input type="text" name="newTask" id="amountToConvert" value="60.000.000" placeholder="Ingresa la cantidad a convertir en CLP">
+			
+		</div>
+        <div class="select-container">
+            <p>Selecciona a qué moneda quieres convertir:</p>
+            <select name="currencyToConvert" id="currencyToConvert" title="currencyToConvert">
+            </select>
+            <div class="btn-container">
+                <button id="btnConvert" class="convert">Convertir</button>
+            </div>
+        </div>
+        <div class="total-container" id="totalContainer">
+        </div>
+    </div>
+
+
+    
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

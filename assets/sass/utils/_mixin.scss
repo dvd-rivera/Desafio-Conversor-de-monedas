@@ -1,0 +1,284 @@
+//_mixin_rd.scss
+// archivo que contiene la declaracion
+// Mixins para responsividad segun tamano de dispositivo
+// Creado por David Rivera
+
+
+@mixin xs {
+  @media (min-width: 374px) { @content; }
+}
+@mixin xs-sm {
+  @media (min-width: 1px) and (max-width: 575px){ @content; }
+}
+@mixin sm {
+  @media (min-width: 576px) { @content; }
+}
+@mixin sm-md {
+  @media (min-width: 576px) and (max-width: 767px){ @content; }
+}
+@mixin md {
+  @media (min-width: 768px) { @content; }
+}
+@mixin md-lg {
+  @media (min-width: 768px) and (max-width: 991px) { @content; }
+}
+@mixin lg {
+  @media (min-width: 992px) { @content; }
+}
+@mixin lg-xl {
+  @media (min-width: 992px) and (max-width: 1200px) { @content; }
+}
+@mixin xl {
+  @media (min-width: 1200px) { @content; }
+}
+@mixin xxl {
+  @media (min-width: 1400px) { @content; }
+}
+
+
+
+//Mixin especificos
+@mixin responsive-1 {
+  @media screen and (max-width: 1163px) and (min-width: 1000px) { @content; }
+}
+  @mixin responsive-2 {
+    @media screen and (max-width: 1430px) and (min-width: 1163px) { @content; }
+  }
+
+  @mixin responsive-3 {
+    @media screen and (max-width: 1226px) and (min-width: 992px) { @content; }
+  }
+
+
+
+//
+  @mixin for-phone-only {
+    @media (max-width: 599px) { @content; }
+  }
+  @mixin for-ipad {
+    @media (max-width: 768px) { @content; }
+  }
+  @mixin for-tablet-portrait-up {
+    @media (min-width: 600px) { @content; }
+  }
+  @mixin for-tablet-portrait-only {
+    @media (min-width: 600px) and (max-width: 990px) { @content; }
+  }
+  @mixin for-tablet-landscape-up {
+    @media (min-width: 900px) { @content; }
+  }
+  @mixin for-tablet-landscape-only {
+    @media (min-width: 900px) and (max-width: 1279px) { @content; }
+  }
+  @mixin for-desktop-up {
+    @media (min-width: 1280px) { @content; }
+  }
+  @mixin for-desktop-only {
+    @media (min-width: 1280px) and (max-width: 1919px) { @content; }
+  }
+  @mixin for-big-desktop-up {
+    @media (min-width: 1920px) { @content; }
+  }
+
+//  @mixin for-tablet-landscape-only {
+//    @media (min-width: 900px) and (max-width: 1199px) { @content; }
+//  }
+//  @mixin for-desktop-up {
+//    @media (min-width: 1200px) { @content; }
+//  }
+//  @mixin for-desktop-only {
+//    @media (min-width: 1200px) and (max-width: 1799px) { @content; }
+//  }
+//  @mixin for-big-desktop-up {
+//    @media (min-width: 1800px) { @content; }
+//  }
+
+  /// Elemento de un bloque
+  /// @access public
+  /// @parametro {String} $elemento - Nombre del elemento
+  @mixin elemento($elemento) {
+     &__#{$elemento} {
+         @content;
+     }
+  }
+
+  /// Modificador de un bloque/elemento
+  /// @access public
+  /// @parametro {String} $modificador - Nombre del modificador
+  @mixin modificador($modificador) {
+      &--#{$modificador} {
+         @content;
+      }
+  }
+
+  /// Posicion absoluta
+  /// Pass in the desired location of your
+  /// target element to produce all the
+  /// necessary positioning code.
+  @mixin posicionAbsoluta ($top: auto, $right: auto, $bottom: auto, $left: auto) {
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+    position: absolute;
+  }
+
+  /// Tamano fuente
+  /// This mixin sets the font size
+  /// in rem's with a px fallback.
+  @mixin tamanoFuente($sizeValue: 12 ){
+    font-size: $sizeValue + px; //fallback for old browsers
+    font-size: (0.125 * $sizeValue) + rem;
+  }
+
+  /// Text Overflow
+  /// An easy way to truncate text with an
+  /// ellipsis. Requires the element to be
+  /// block or inline-block.
+  @mixin textOverflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /// Opacity
+  /// Set the opacity for all browsers and provide
+  /// a filter fallback for IE8.
+  @mixin opacity($opacity) {
+    opacity: $opacity;
+    $opacity-ie: $opacity * 100;
+    filter: alpha(opacity=$opacity-ie); //IE8
+  }
+
+  /// Center-Align block element
+  /// Quickly center any element within its parent.
+  /// Requires width or max-width to be set.
+  @mixin centrar {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  @mixin centraVertical {
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  @mixin centraHorizontal {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+
+  //.footer-wrap {
+  //  width: 450px;
+  //  @include centrar;
+  //}
+
+  /// Border Radius
+  /// Always a handy mixin. Set every border
+  /// radius or just a single side without
+  /// worrying about all those prefixes.
+  @mixin borderRadius($radius) {
+    -webkit-border-radius: $radius;
+    border-radius: $radius;
+    background-clip: padding-box;  /* stops bg color from leaking outside the border: */
+  }
+  /// Single side border-radius
+  @mixin borderTopRadius($radius) {
+    -webkit-border-top-right-radius: $radius;
+    border-top-right-radius: $radius;
+     -webkit-border-top-left-radius: $radius;
+     border-top-left-radius: $radius;
+     background-clip: padding-box;
+  }
+  @mixin borderRightRadius($radius) {
+    -webkit-border-bottom-right-radius: $radius;
+    border-bottom-right-radius: $radius;
+       -webkit-border-top-right-radius: $radius;
+       border-top-right-radius: $radius;
+       background-clip: padding-box;
+  }
+  @mixin borderBottomRadius($radius) {
+    -webkit-border-bottom-right-radius: $radius;
+    border-bottom-right-radius: $radius;
+     -webkit-border-bottom-left-radius: $radius;
+     border-bottom-left-radius: $radius;
+     background-clip: padding-box;
+  }
+  @mixin borderLeftRadius($radius) {
+    -webkit-border-bottom-left-radius: $radius;
+    border-bottom-left-radius: $radius;
+       -webkit-border-top-left-radius: $radius;
+       border-top-left-radius: $radius;
+       background-clip: padding-box;
+  }
+
+  /// Box Sizing
+  /// Reset your elements box model with ease.
+  @mixin box-sizing($box-model) {
+    -webkit-box-sizing: $box-model; // Safari <= 5
+       -moz-box-sizing: $box-model; // Firefox <= 19
+            box-sizing: $box-model;
+  }
+  //*,
+  //*:after,
+  //*:before {
+  //  @include box-sizing(border-box);
+  //}
+
+
+@mixin flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+@mixin flex-column {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+  flex-direction: column;
+  text-align: center;
+}
+
+@mixin flex-start {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+
+@mixin flex-between {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+@mixin flex-around {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+
+@mixin flex-bet-top {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+@mixin flex-all($justify, $align) {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: $align;
+	justify-content: $justify;
+}
