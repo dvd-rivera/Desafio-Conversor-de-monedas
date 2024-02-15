@@ -84,11 +84,8 @@ body {
   align-items: flex-start;
   justify-content: center;
 }
-.converter-container .converter-header {
-  border-bottom: 2px solid rgb(236, 134, 0);
-}
 .converter-container .converter-header h2 {
-  margin-top: 0;
+  margin: 0;
 }
 
 .input-container {
@@ -108,10 +105,10 @@ body {
   background-color: #e7e7e7;
   border: none;
   width: 100%;
-  height: 50px;
+  height: 40px;
   border-radius: 40px;
   padding: 12px;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 600;
   text-align: center;
 }
@@ -130,47 +127,42 @@ body {
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 .select-container p {
   font-weight: 600;
+  margin: 0;
+  margin-bottom: 12px;
 }
 .select-container select {
-  width: 100%;
+  width: 70%;
   padding: 12px;
   border-radius: 8px;
   font-weight: 600;
 }
-.select-container .btn-container {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.select-container .btn-container button {
-  margin-top: 12px;
+.select-container button {
   background-color: rgb(236, 134, 0);
   border: none;
   padding: 12px 40px;
   color: white;
-  border-radius: 30px;
+  border-radius: 8px;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 14px;
   cursor: pointer;
+  height: 44px;
 }
-.select-container .btn-container button:hover:not(:disabled) {
+.select-container button:hover:not(:disabled) {
   box-shadow: inset 0px -12px 12px #ffb732;
 }
-.select-container .btn-container button:disabled {
+.select-container button:disabled {
   background-color: #888;
   cursor: no-drop;
 }
 
 .total-container {
   width: 100%;
-  font-size: 32px;
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,8 +172,17 @@ body {
   width: 100%;
   text-align: center;
   margin: 12px;
+  font-weight: 600;
 }
-.total-container p.equivale {
+.total-container .equivale {
   margin: 0;
   font-size: 18px;
+  font-weight: 400;
+}
+
+.chart-container {
+  width: 100%;
+}
+.chart-container canvas {
+  width: 100%;
 }/*# sourceMappingURL=main.css.map */

@@ -2,8 +2,10 @@ const currencyToConvertHTML = document.getElementById("currencyToConvert")
 const amountToConvertHTML = document.getElementById("amountToConvert")
 const btnConvertHTML = document.getElementById("btnConvert")
 const totalContainerHTML = document.getElementById("totalContainer")
+// const ctx = document.getElementById('myChart').getContext('2d');
 
 let currencies = []
+let history = []
 amountToConvertHTML.addEventListener("input", validateInput)
 btnConvertHTML.addEventListener("click", convertCurrency)
 
@@ -13,6 +15,8 @@ function addCurrencies(Currencies) {
 		currencyToConvertHTML.innerHTML += `<option value="${currency.nombre}">${currency.nombre}</option>`
 	});
 }
+
+currencyToConvertHTML.addEventListener('change', showChart)
 
 function createArrCurrencies(coinsData) {
 	let arrCurrencies = [];
@@ -45,6 +49,16 @@ async function fetchData() {
 }
 
 fetchData()
+
+async function fetchHistoryData(currency) {
+    try {
+        let response = await fetch('https://mindicador.cl/api/' + currency);
+        let data = await response.json();
+		history = createArrHistory(data.serie)
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
 
 
 function validateInput(){
@@ -102,7 +116,75 @@ function showTotal(convertedValue, codigo) {
 	}
 
 	totalContainerHTML.innerHTML = `
-	<p>CLP ${amountToConvertHTML.value }</p>
-	<p class="equivale">equivale a</p>
-	<p class="total">${total}</p>`
+	<p>CLP ${amountToConvertHTML.value } <span class="equivale">equivale a </span> ${total} </p>`
+}
+
+let myChart;
+
+function showChart() {
+    let selected = currencies.filter((currency) => { return currency.nombre == currencyToConvertHTML.value})[0]
+    let xValues = []
+    let yValues = []
+    if (selected) {
+        fetchHistoryData(selected.codigo).then(() => {
+            history.forEach((day) => {
+                let formatedDates = formatDate(day.fecha)
+                xValues.push(formatedDates)
+            })
+
+            history.forEach((day) => {
+                console.log(day.valor)
+                yValues.push(day.valor.toString())
+            })
+
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            myChart = new Chart("myChart", {
+                type: "line",
+                data: {
+                    labels: xValues.reverse(),
+                    datasets: [{
+						label: 'Mi conjunto de datos',
+                        fill: false,
+                        lineTension: 0,
+                        backgroundColor:"rgba(0,0,255,1.0)",
+                        borderColor: "rgba(0,0,255,0.1)",
+                        data: yValues
+                    }]
+                },
+                options: {
+                    legend: {display: false},
+					title: {
+						display: true,
+						text: 'Valor de los últimos 10 días del ' + selected.nombre
+					}
+                }
+            });
+        })
+    }
+}
+
+
+function createArrHistory(data) {
+	let arrHistory = []
+	for (let i = 0; i <= 9; i++) {
+		arrHistory.push(data[i])
+	}
+	return arrHistory
+}
+
+function formatDate(date) {
+	let fecha = new Date(date);
+
+	let dia = fecha.getDate();
+	let mes = fecha.getMonth() + 1;
+	let ano = fecha.getFullYear();
+
+	if (dia < 10) dia = '0' + dia;
+	if (mes < 10) mes = '0' + mes;
+
+	let fechaFormateada = dia + '/' + mes + '/' + ano;
+	return fechaFormateada
 }
